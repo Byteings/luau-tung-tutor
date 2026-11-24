@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Italian brainrots teach you Luau, JavaScript and Python through chaos, memes and tiny quizzes.">
+<title>Tung Tung Code Academy — Brainrots Teach You Code</title>
+<style>
+  :root {
+    --bg: #120626;
+    --bg-deep: #0c0419;
+    --card: #1d0b35;
+    --card-2: #29103f;
+    --ink: #fff7e6;
+    --muted: #c9b7e8;
+    --lime: #b6ff3d;
+    --pink: #ff4fd8;
+    --cyan: #3ee7ff;
+    --yellow: #ffd93d;
+    --purple: #9b6bff;
+    --red: #ff6b81;
+    --border: rgba(255, 255, 255, 0.14);
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    --font-head: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", system-ui, sans-serif;
+    --font-body: "Trebuchet MS", system-ui, -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 12% 12%, rgba(155, 107, 255, 0.28), transparent 34%),
+      radial-gradient(circle at 88% 8%, rgba(255, 79, 216, 0.2), transparent 30%),
+      radial-gradient(circle at 50% 90%, rgba(62, 231, 255, 0.14), transparent 40%),
+      linear-gradient(160deg, var(--bg), var(--bg-deep));
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px clamp(14px, 4vw, 46px);
+    background: rgba(12, 4, 25, 0.82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    background: none;
+    border: none;
+    color: var(--ink);
+    font-family: var(--font-head);
+    font-size: clamp(1rem, 2.4vw, 1.4rem);
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    padding: 4px 0;
+    text-align: left;
+  }
+  .brand span { color: var(--lime); }
+
+  .stats { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .stat {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+  .stat b { color: var(--yellow); }
+
+  .mini-btn {
+    background: transparent;
+    color: var(--muted);
+    border: 1px dashed rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .mini-btn:hover { color: var(--red); border-color: var(--red); }
+
+  main { width: min(1180px, 92vw); margin: 0 auto; padding: 32px 0 70px; }
+
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 34px;
+    align-items: center;
+    padding: 46px 0 34px;
+  }
+  .eyebrow {
+    display: inline-block;
+    color: var(--bg-deep);
+    background: var(--lime);
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 5px 13px;
+    border-radius: 999px;
+    transform: rotate(-2deg);
+    box-shadow: 3px 3px 0 var(--pink);
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.7rem, 7.5vw, 5.7rem);
+    line-height: 0.94;
+    margin: 18px 0 18px;
+    letter-spacing: -2px;
+    text-shadow: 4px 4px 0 rgba(255, 79, 216, 0.55), 8px 8px 0 rgba(62, 231, 255, 0.18);
+  }
+  .hero h1 .pop { color: var(--yellow); }
+  .hero p.lede { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); max-width: 46ch; }
+  .hero p.lede strong { color: var(--ink); }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+
+  .btn {
+    border: none;
+    border-radius: 14px;
+    padding: 13px 22px;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--bg-deep);
+    background: var(--lime);
+    box-shadow: 0 5px 0 #65a800, var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #65a800; }
+  .btn.secondary { background: var(--purple); color: white; box-shadow: 0 5px 0 #4b258f, var(--shadow); }
+  .btn.pink { background: var(--pink); color: white; box-shadow: 0 5px 0 #9c1483, var(--shadow); }
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 2px solid var(--border);
+    box-shadow: none;
+  }
+  .btn.ghost:hover { border-color: var(--cyan); }
+  .btn.small { padding: 9px 15px; font-size: 0.88rem; box-shadow: none; }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+  .hero-crew { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; }
+  .crew-float {
+    position: relative;
+    background: linear-gradient(160deg, var(--card-2), var(--card));
+    border: 2px solid var(--border);
+    border-radius: 22px;
+    padding: 10px 8px 8px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: floaty 4s ease-in-out infinite;
+  }
+  .crew-float:nth-child(2) { animation-delay: -0.7s; }
+  .crew-float:nth-child(3) { animation-delay: -1.4s; }
+  .crew-float:nth-child(4) { animation-delay: -2.1s; }
+  .crew-float:nth-child(5) { animation-delay: -2.8s; }
+  .crew-float:nth-child(6) { animation-delay: -3.5s; }
+  .crew-float img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; }
+  .crew-float .tag { font-size: 0.68rem; color: var(--muted); font-weight: bold; line-height: 1.2; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-12px) rotate(1.5deg); } }
+
+  .section-head { margin: 48px 0 20px; }
+  .section-head h2 {
+    font-family: var(--font-head);
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    margin: 0 0 6px;
+  }
+  .section-head p { color: var(--muted); margin: 0; }
+
+  .track-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .track-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(165deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 22px;
+    text-align: left;
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .track-card:hover { transform: translateY(-6px) rotate(-0.6deg); border-color: var(--track-color, var(--lime)); }
+  .track-card::after {
+    content: "";
+    position: absolute;
+    width: 180px; height: 180px;
+    right: -70px; top: -80px;
+    background: var(--track-color, var(--lime));
+    opacity: 0.14;
+    border-radius: 50%;
+  }
+  .track-card img { width: 96px; height: 96px; object-fit: contain; display: block; margin-bottom: 10px; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
+  .track-card h3 { font-family: var(--font-head); font-size: 1.55rem; margin: 4px 0; }
+  .track-card p { color: var(--muted); font-size: 0.92rem; margin: 6px 0 14px; min-height: 42px; }
+  .chip {
+    display: inline-block;
+    background: rgba(255,255,255,0.09);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+  .track-card .enter { color: var(--track-color, var(--lime)); font-family: var(--font-head); font-weight: 800; }
+
+  .progress-track { height: 9px; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; margin-top: 14px; }
+  .progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--cyan), var(--lime)); transition: width 0.45s ease; }
+
+  .crew-section, .dictionary-section, .how-section {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    padding: clamp(18px, 3.5vw, 32px);
+    margin-top: 34px;
+  }
+  .tutor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .tutor-card {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .tutor-card img { width: 100%; height: 108px; object-fit: contain; }
+  .tutor-card b { display: block; font-family: var(--font-head); font-size: 0.86rem; }
+  .tutor-card small { color: var(--muted); font-size: 0.72rem; }
+
+  .dict-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .dict-row {
+    display: flex; justify-content: space-between; gap: 10px;
+    background: rgba(0,0,0,0.22);
+    border-left: 4px solid var(--pink);
+    border-radius: 10px;
+    padding: 9px 13px;
+    font-size: 0.9rem;
+  }
+  .dict-row code { color: var(--cyan); font-weight: bold; }
+  .dict-row span { color: var(--yellow); text-align: right; }
+
+  .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; counter-reset: step; }
+  .how-step { position: relative; padding: 18px 16px 16px 20px; background: rgba(0,0,0,0.2); border-radius: 16px; }
+  .how-step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; top: -12px; left: 14px;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--pink); color: white; border-radius: 50%; font-family: var(--font-head);
+  }
+  .how-step h4 { margin: 8px 0 4px; font-family: var(--font-head); }
+  .how-step p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+  .back {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 15px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  .back:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  .track-hero {
+    display: flex; flex-wrap: wrap; gap: 22px; align-items: center;
+    background: linear-gradient(140deg, var(--card-2), var(--card));
+    border: 2px solid var(--border);
+    border-radius: 26px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .track-hero img { width: 112px; height: 112px; object-fit: contain; }
+  .track-hero h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0; }
+  .track-hero p { color: var(--muted); margin: 6px 0 0; max-width: 60ch; }
+  .track-hero .progress-track { min-width: 220px; flex: 1; }
+
+  .lesson-list { display: grid; gap: 12px; margin-top: 22px; }
+  .lesson-row {
+    display: flex; align-items: center; gap: 16px; text-align: left;
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    padding: 16px 18px;
+    color: var(--ink);
+    transition: transform 0.16s, border-color 0.16s, background 0.16s;
+  }
+  .lesson-row:hover:not(:disabled) { transform: translateX(6px); border-color: var(--cyan); background: rgba(62,231,255,0.08); }
+  .lesson-row:disabled { opacity: 0.48; }
+  .lesson-num {
+    flex: 0 0 46px; height: 46px; display: grid; place-items: center;
+    border-radius: 14px; background: var(--purple); font-family: var(--font-head); font-weight: 800; font-size: 1.2rem;
+  }
+  .lesson-row.done .lesson-num { background: var(--lime); color: var(--bg-deep); }
+  .lesson-row.locked .lesson-num { background: #55406f; }
+  .lesson-row .info { flex: 1; }
+  .lesson-row .info b { display: block; font-family: var(--font-head); font-size: 1.05rem; }
+  .lesson-row .info small { color: var(--muted); }
+  .lesson-row .state { font-size: 1.4rem; }
+
+  .lesson-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+  .tutor-panel {
+    position: sticky; top: 86px;
+    background: linear-gradient(170deg, var(--card-2), var(--card));
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .tutor-panel img { width: 100%; height: 190px; object-fit: contain; animation: floaty 4.5s ease-in-out infinite; }
+  .tutor-panel h3 { font-family: var(--font-head); margin: 6px 0 2px; font-size: 1.15rem; }
+  .tutor-panel .role { color: var(--cyan); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+  .bubble {
+    position: relative;
+    background: var(--ink);
+    color: var(--bg-deep);
+    border-radius: 16px;
+    padding: 12px 13px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    margin-top: 14px;
+    text-align: left;
+  }
+  .bubble::before {
+    content: ""; position: absolute; top: -9px; left: 34px;
+    border-left: 10px solid transparent; border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--ink);
+  }
+
+  .lesson-main { min-width: 0; }
+  .lesson-heading h2 { font-family: var(--font-head); font-size: clamp(1.6rem, 3.6vw, 2.5rem); margin: 8px 0 10px; }
+  .pill { background: rgba(182,255,61,0.14); color: var(--lime); border: 1px solid rgba(182,255,61,0.4); border-radius: 999px; padding: 4px 12px; font-size: 0.76rem; font-weight: bold; }
+
+  .panel {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: clamp(16px, 2.5vw, 24px);
+    margin-top: 16px;
+  }
+  .panel h3 { font-family: var(--font-head); margin: 0 0 8px; font-size: 1.2rem; }
+  .panel p { margin: 0 0 10px; }
+  .panel p:last-child { margin-bottom: 0; }
+
+  code, pre { font-family: "Cascadia Code", Consolas, "Courier New", monospace; }
+  .concept code, .breakdown code, .dict-row code {
+    background: rgba(62,231,255,0.1); color: var(--cyan); padding: 1px 6px; border-radius: 6px; font-size: 0.88em;
+  }
+  .breakdown { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+  .breakdown li { display: flex; gap: 10px; color: var(--muted); font-size: 0.93rem; }
+  .breakdown li::before { content: "✦"; color: var(--pink); }
+
+  .code-card { border-radius: 18px; overflow: hidden; border: 2px solid rgba(62,231,255,0.3); background: #090416; margin-top: 16px; }
+  .code-head {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(62,231,255,0.09);
+    border-bottom: 1px solid rgba(62,231,255,0.2);
+    padding: 8px 14px;
+    font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); font-weight: bold;
+  }
+  .code-card pre { margin: 0; padding: 18px; overflow-x: auto; font-size: clamp(0.8rem, 1.5vw, 0.95rem); line-height: 1.7; color: #e8f7ff; tab-size: 2; }
+  .code-card pre .cmt { color: #8c7fb0; }
+  .code-card pre .kw { color: #ff7de9; }
+  .code-card pre .str { color: #d8ff85; }
+  .code-card pre .num { color: #ffcd5c; }
+
+  .quiz-card { border: 2px solid var(--pink); background: rgba(255,79,216,0.07); }
+  .quiz-count { color: var(--pink); font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+  .quiz-card h3 { font-size: clamp(1.05rem, 2.2vw, 1.35rem); margin: 8px 0 16px; }
+  .options { display: grid; gap: 9px; }
+  .option {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid var(--border);
+    border-radius: 13px;
+    padding: 12px 14px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    transition: transform 0.14s, border-color 0.14s, background 0.14s;
+  }
+  .option:hover:not(:disabled) { transform: translateX(5px); border-color: var(--cyan); background: rgba(62,231,255,0.08); }
+  .option .key { width: 26px; height: 26px; flex: 0 0 26px; display: grid; place-items: center; border-radius: 8px; background: rgba(255,255,255,0.12); font-size: 0.78rem; font-weight: bold; }
+  .option.correct { border-color: var(--lime); background: rgba(182,255,61,0.14); }
+  .option.wrong { border-color: var(--red); background: rgba(255,107,129,0.12); animation: shake 0.35s; }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+  .feedback { min-height: 26px; margin-top: 14px; font-weight: bold; font-size: 0.92rem; }
+  .feedback.good { color: var(--lime); }
+  .feedback.bad { color: var(--red); }
+  .quiz-next { margin-top: 8px; }
+
+  .lab-card { border-color: rgba(182,255,61,0.35); background: rgba(182,255,61,0.05); }
+  .lab-card textarea {
+    width: 100%; min-height: 150px; resize: vertical;
+    background: #090416; color: #e8f7ff;
+    border: 1px solid rgba(62,231,255,0.3); border-radius: 12px;
+    padding: 14px; font-size: 0.86rem; line-height: 1.6; tab-size: 2;
+  }
+  .lab-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+  .lab-output { white-space: pre-wrap; background: #090416; border-radius: 12px; padding: 14px; min-height: 50px; color: var(--lime); font-family: Consolas, monospace; font-size: 0.85rem; }
+
+  .complete-view { text-align: center; padding: 40px 10px; }
+  .complete-view img { width: min(240px, 55vw); height: 240px; object-fit: contain; animation: floaty 3s ease-in-out infinite; }
+  .complete-view h2 { font-family: var(--font-head); font-size: clamp(2rem, 6vw, 3.8rem); margin: 8px 0; color: var(--lime); }
+  .complete-view p { color: var(--muted); }
+  .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 18px 0; }
+  .badge { background: rgba(255,255,255,0.07); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-family: var(--font-head); }
+
+  .toast {
+    position: fixed; bottom: 26px; left: 50%; transform: translate(-50%, 140%);
+    background: var(--ink); color: var(--bg-deep);
+    padding: 12px 20px; border-radius: 14px; font-weight: bold; font-family: var(--font-head);
+    box-shadow: var(--shadow); z-index: 200; max-width: 88vw; text-align: center;
+    transition: transform 0.35s cubic-bezier(.2,1.4,.4,1);
+  }
+  .toast.show { transform: translate(-50%, 0); }
+
+  .confetti {
+    position: fixed; top: -50px; z-index: 150; pointer-events: none;
+    font-size: 1.6rem; animation: fall linear forwards;
+  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity: 0.2; } }
+
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 0 12px 40px; }
+  footer a { color: var(--cyan); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-crew { max-width: 560px; }
+    .lesson-layout { grid-template-columns: 1fr; }
+    .tutor-panel { position: static; }
+    .tutor-panel img { height: 140px; }
+  }
+  @media (max-width: 520px) {
+    .hero-crew { grid-template-columns: repeat(3, 1fr); }
+    .hero h1 { letter-spacing: -1px; }
+    .stats { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="brand" id="brand-btn" aria-label="Go to academy home">🧠 Tung Tung <span>Code</span> Academy</button>
+  <div class="stats">
+    <span class="stat" title="Experience points">⚡ <b id="xp-count">0</b> XP</span>
+    <span class="stat" title="Lessons cleared">✅ <b id="lesson-count">0</b>/15</span>
+    <button class="mini-btn" id="reset-btn" title="Erase all saved progress">Reset progress</button>
+  </div>
+</header>
+
+<main id="view" aria-live="polite"></main>
+
+<footer>
+  Brainrot images: AI-generated meme characters via <a href="https://commons.wikimedia.org/wiki/Category:Italian_brainrot" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> (public domain). Code runs locally in your browser. 🦈
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------ *
+ * Brainrot crew — public image URLs (Wikimedia Commons, public domain)
+ * ------------------------------------------------------------------ */
+const IMG = (file, width = 360) =>
+  "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(file) + "?width=" + width;
+
+const TUTORS = {
+  tung: {
+    name: "Tung Tung Tung Sahur",
+    role: "Head of Variables",
+    img: IMG("Full image of Tung Tung Tung Sahur.png"),
+    fallback: "🪵",
+    lines: [
+      "TUNG TUNG TUNG! Put the value in the box or I bonk your bug.",
+      "Bro I hit the keyboard three times. It learned. You can learn too.",
+      "No skibidi excuses. Read the code, then run the code."
+    ]
+  },
+  tralala: {
+    name: "Tralalero Tralala",
+    role: "Function Shark",
+    img: IMG("Tralalero Tralala.webp"),
+    fallback: "🦈",
+    lines: [
+      "I run on three blue shoes and zero null errors.",
+      "Tralalero tralala — call the function, get the value. Ciao!",
+      "Copy-paste is for noobs. Functions are for sigma grinders."
+    ]
+  },
+  crocodilo: {
+    name: "Bombardiro Crocodilo",
+    role: "Loop Bomber",
+    img: IMG("Bombardiro Crocodillo.jpg"),
+    fallback: "🐊",
+    lines: [
+      "I repeat. I repeat. I repeat. That's literally a loop.",
+      "Tung tung boom! Five lines, five laps, no survivors.",
+      "Infinite loop? I drop more bombs than your compiler can count."
+    ]
+  },
+  ballerina: {
+    name: "Ballerina Cappuccina",
+    role: "Python Prima Ballerina",
+    img: IMG("Ballerina_Cappucina.webp"),
+    fallback: "☕",
+    lines: [
+      "Indentation is my tutu. Respect the four spaces, bello.",
+      "Più preciso, più caffè. Let's write clean code.",
+      "If your code is messy, I will pirouette on your keyboard."
+    ]
+  },
+  cappuccino: {
+    name: "Cappuccino Assassino",
+    role: "Logic Ninja",
+    img: IMG("Cappucino_assasino.webp"),
+    fallback: "🥷",
+    lines: [
+      "If true, strike. If false, vanish. That is if/else.",
+      "I sneak through your conditions like a ninja through the dark.",
+      "One wrong boolean and the whole mission is skibidi."
+    ]
+  },
+  chimpanzini: {
+    name: "Chimpanzini Bananini",
+    role: "Table Monkey",
+    img: IMG("ChimpanziniBananini.webp"),
+    fallback: "🍌",
+    lines: [
+      "Index zero? In Luau that's bananas. Start at one!",
+      "I organize data. Mostly bananas. Sometimes swords.",
+      "Tables are just lunchboxes with extra steps."
+    ]
+  },
+  patapim: {
+    name: "Brr Brr Patapim",
+    role: "DOM Wrangler",
+    img: IMG("Brr_brr_patapim.jpg"),
+    fallback: "🐒",
+    lines: [
+      "Brr brr! I grab elements out of the page like a boss.",
+      "The DOM is a jungle. querySelector is your machete.",
+      "Change the text, change the vibe. Simple."
+    ]
+  },
+  gusini: {
+    name: "Bombombini Gusini",
+    role: "Python Wingman",
+    img: IMG("Bombini_Gusini.webp"),
+    fallback: "🪿",
+    lines: [
+      "I fly in formation with the other loops. Honk.",
+      "Small bird, big loops. Don't underestimate the goose.",
+      "My wings are parameterized. Clearly superior."
+    ]
+  }
+};
+
+/* ------------------------------------------------------------------ *
+ * Curriculum
+ * ------------------------------------------------------------------ */
+const TRACKS = [
+  {
+    id: "luau",
+    name: "Luau / Roblox",
+    color: "#ff4fd8",
+    desc: "Script your Roblox obby like a true sigma. Variables, loops, functions and tables.",
+    tutor: "tung",
+    lang: "luau",
+    lessons: [
+      {
+        id: "luau-1",
+        title: "Variables: Put the Skibidi in a Box",
+        tutor: "tung",
+        concept: 'A variable is a labeled box for a value. In Luau you almost always use <code>local</code> so the box stays inside its own block of code — no other script can accidentally yeet it. Text is a <code>string</code>, <code>7</code> is a <code>number</code>, and <code>true</code> is a <code>boolean</code>.',
+        code: 'local playerName = "SkibidiNoob"\nlocal level = 7\nlocal isSigma = true\n\nprint(playerName .. " is level " .. level)',
+        breakdown: [
+          '<code>local</code> keeps the variable scoped to this script or block.',
+          '<code>..</code> glues strings together — that is called concatenation.',
+          'You do not declare a type; Luau figures it out from the value.',
+          '<code>print()</code> writes output to the Roblox console.'
+        ],
+        quiz: [
+          {
+            q: "Which word makes a Luau variable local to its block?",
+            options: ["local", "let", "dim", "var"],
+            answer: 0,
+            right: "TUNG TUNG! <code>local</code> keeps it in its lane.",
+            wrong: "Nope, that word lives in a different language's universe. Try <code>local</code>."
+          },
+          {
+            q: 'What does "tung" .. "tung" produce?',
+            options: ["tungtung", "tung tung", "2", "an error"],
+            answer: 0,
+            right: "Correct — <code>..</code> smashes strings together with no spaces.",
+            wrong: "<code>..</code> is concatenation: it glues with no spaces. Try again!"
+          }
+        ]
+      },
+      {
+        id: "luau-2",
+        title: "If / Else: Choose Your Path, Sigma",
+        tutor: "cappuccino",
+        concept: 'An <code>if</code> statement checks a condition. When it is true, that block runs. <code>elseif</code> checks another option and <code>else</code> catches everything left over. Every block ends with <code>end</code>.',
+        code: 'local stamina = 35\n\nif stamina >= 50 then\n    print("Sprint, sigma!")\nelseif stamina > 0 then\n    print("Jog like a noob")\nelse\n    print("Tung tung... rest")\nend',
+        breakdown: [
+          '<code>&gt;=</code> means greater than or equal to.',
+          '<code>elseif</code> is one word in Luau, not <code>else if</code>.',
+          'The <code>end</code> at the bottom closes the whole chain.'
+        ],
+        quiz: [
+          {
+            q: "What closes an if block in Luau?",
+            options: ["end", "}", "endif;", "done"],
+            answer: 0,
+            right: "Sneaky and correct. Luau uses <code>end</code>.",
+            wrong: "No braces here, ninja. Luau closes blocks with <code>end</code>."
+          },
+          {
+            q: "With stamina = 35, which message prints?",
+            options: ["Sprint, sigma!", "Jog like a noob", "Tung tung... rest", "Nothing at all"],
+            answer: 1,
+            right: "35 is above 0 but below 50, so the <code>elseif</code> branch wins.",
+            wrong: "35 is not &gt;= 50, but it is &gt; 0. Look at the <code>elseif</code>."
+          }
+        ]
+      },
+      {
+        id: "luau-3",
+        title: "Loops: Bombardiro Repeats Until Victory",
+        tutor: "crocodilo",
+        concept: 'Loops repeat code. A numeric <code>for</code> loop runs a fixed number of times, while a <code>while</code> loop keeps going as long as its condition stays true.',
+        code: 'for i = 1, 5 do\n    print("Tung " .. i)\nend\n\nlocal hp = 3\nwhile hp > 0 do\n    hp -= 1\nend\nprint("HP: " .. hp)',
+        breakdown: [
+          '<code>for i = 1, 5 do</code> runs with i = 1, 2, 3, 4, 5.',
+          '<code>while hp &gt; 0 do</code> repeats until hp reaches 0.',
+          '<code>hp -= 1</code> subtracts one every lap.',
+          'Every loop needs its own <code>end</code>.'
+        ],
+        quiz: [
+          {
+            q: "How many times does for i = 1, 5 do print?",
+            options: ["5", "4", "6", "forever"],
+            answer: 0,
+            right: "Boom! Five laps: 1, 2, 3, 4, 5.",
+            wrong: "It starts at 1 and stops at 5 — count those numbers again."
+          },
+          {
+            q: "Which loop keeps going while a condition is true?",
+            options: ["while", "numeric for", "local", "print"],
+            answer: 0,
+            right: "That is the whole personality of a <code>while</code> loop.",
+            wrong: "A numeric for has a fixed count. Think of the condition-checking loop."
+          }
+        ]
+      },
+      {
+        id: "luau-4",
+        title: "Functions: Your Shark-Sized Recipe",
+        tutor: "tralala",
+        concept: 'A function is a reusable recipe. Define it once with <code>local function</code>, then call it whenever you need it. Parameters are the ingredients you hand in.',
+        code: 'local level = 1\n\nlocal function levelUp(amount)\n    level += amount\n    print("LEVEL " .. level)\nend\n\nlevelUp(3) -- prints LEVEL 4',
+        breakdown: [
+          '<code>amount</code> is a parameter — a value passed into the function.',
+          '<code>levelUp(3)</code> calls the function with 3 as the amount.',
+          '<code>+=</code> adds to the existing value.',
+          'Functions save you from copy-paste brainrot.'
+        ],
+        quiz: [
+          {
+            q: "What is amount in this example?",
+            options: ["a parameter", "a loop", "a table", "a boolean"],
+            answer: 0,
+            right: "Tralalero tralala! It is a parameter.",
+            wrong: "It is the ingredient you pass in — the fancy word is parameter."
+          },
+          {
+            q: "How do you actually run the function?",
+            options: ["levelUp(3)", "function levelUp", "print(levelUp)", "local levelUp()"],
+            answer: 0,
+            right: "Yes! Parentheses call the function with an argument.",
+            wrong: "Calling means writing the name followed by parentheses and an argument."
+          }
+        ]
+      },
+      {
+        id: "luau-5",
+        title: "Tables: The Banana Inventory",
+        tutor: "chimpanzini",
+        concept: 'Tables store collections. An array uses numeric indexes — and in Luau the first one is <code>1</code>, not 0. A dictionary uses named keys like <code>name</code> and <code>hp</code>.',
+        code: 'local inventory = {"banana", "sword", "potion"}\nprint(inventory[1]) -- banana!\n\nlocal player = {name = "Tralala", hp = 100}\nprint(player.name) -- Tralala\nprint(player["hp"]) -- 100',
+        breakdown: [
+          '<code>inventory[1]</code> is the first item in Luau. Start at one!',
+          '<code>{name = "Tralala", hp = 100}</code> is a dictionary.',
+          'Read named keys with <code>player.name</code> or <code>player["name"]</code>.'
+        ],
+        quiz: [
+          {
+            q: "What does inventory[1] print?",
+            options: ["banana", "sword", "nil", "potion"],
+            answer: 0,
+            right: "Banana! Luau arrays start at index 1.",
+            wrong: "First item, index 1. In Luau, that is the banana."
+          },
+          {
+            q: "Which line reads the player's hp?",
+            options: ["player.hp", "player->hp", "hp.player", "player(hp)"],
+            answer: 0,
+            right: "Dot notation for the win.",
+            wrong: "Dictionaries use a dot (or brackets) to read a key."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "js",
+    name: "JavaScript",
+    color: "#ffd93d",
+    desc: "Make the web move. Variables, functions, arrays, objects and a tiny code playground.",
+    tutor: "tralala",
+    lang: "javascript",
+    lessons: [
+      {
+        id: "js-1",
+        title: "Variables: Tralalero's Treasure Chest",
+        tutor: "tralala",
+        concept: '<code>let</code> makes a variable you can change. <code>const</code> makes one you cannot reassign. Text is a string, numbers are numbers, and <code>true</code> / <code>false</code> is a boolean. <code>console.log()</code> prints stuff for debugging.',
+        code: 'let score = 0;\nconst player = "Tralalero";\nlet isSigma = true;\n\nscore = score + 10;\nconsole.log(player + " scored " + score);',
+        breakdown: [
+          '<code>let</code> = changeable box; <code>const</code> = locked box.',
+          'Semicolons end statements in JavaScript.',
+          '<code>console.log()</code> writes to the developer console (F12).'
+        ],
+        quiz: [
+          {
+            q: "Which keyword declares a variable you can reassign?",
+            options: ["let", "const", "fixed", "immutable"],
+            answer: 0,
+            right: "Correct! <code>let</code> lets you change the value.",
+            wrong: "<code>const</code> locks it. You want the changeable one."
+          },
+          {
+            q: "What does typeof 42 return?",
+            options: ['"number"', '"int"', '"42"', '"string"'],
+            answer: 0,
+            right: 'JS calls them all <code>"number"</code>.',
+            wrong: "JavaScript has one number type: <code>number</code>."
+          }
+        ],
+        lab: 'let score = 0;\nconst player = "Skibidi";\n\nscore += 7;\nconsole.log(player + " has " + score + " points");'
+      },
+      {
+        id: "js-2",
+        title: "Functions: Ballerina's Pirouette Recipe",
+        tutor: "ballerina",
+        concept: 'A function packages code so you can reuse it. A regular function uses the <code>function</code> keyword. An arrow function is a compact alternative: <code>(n) =&gt; n * 2</code>. <code>return</code> sends a value back to whoever called it.',
+        code: 'function greet(name) {\n  return "Ciao, " + name + "!";\n}\n\nconst double = (n) => n * 2;\n\nconsole.log(greet("Tung"));\nconsole.log(double(4));',
+        breakdown: [
+          '<code>name</code> and <code>n</code> are parameters.',
+          '<code>return</code> hands a value back to the caller.',
+          'Arrow functions skip the word <code>function</code> for short bodies.'
+        ],
+        quiz: [
+          {
+            q: "What does return do?",
+            options: ["sends a value back to the caller", "starts a loop", "prints to the console", "ends the program"],
+            answer: 0,
+            right: "Precisely. Return gives the caller a value.",
+            wrong: "It does not print — it hands a value back. Try again."
+          },
+          {
+            q: "What does double(4) return?",
+            options: ["8", "4", "16", "undefined"],
+            answer: 0,
+            right: "4 times 2 is 8. Bellissimo!",
+            wrong: "Look at the arrow function: it multiplies by 2."
+          }
+        ],
+        lab: 'function shout(word) {\n  return word.toUpperCase() + "!!!";\n}\n\nconsole.log(shout("skibidi"));\nconsole.log(shout("tung tung"));'
+      },
+      {
+        id: "js-3",
+        title: "If / Else: Ninja Logic",
+        tutor: "cappuccino",
+        concept: '<code>if</code> checks a condition, <code>else if</code> adds another, and <code>else</code> is the fallback. Use <code>===</code> for strict equality — it checks both value and type.',
+        code: 'let hp = 42;\n\nif (hp >= 50) {\n  console.log("Sigma mode");\n} else if (hp > 0) {\n  console.log("Keep grinding");\n} else {\n  console.log("Respawn time");\n}',
+        breakdown: [
+          'Conditions go inside parentheses <code>( )</code>.',
+          'Blocks live inside curly braces <code>{ }</code>.',
+          '<code>===</code> is strict; <code>=</code> assigns a value.'
+        ],
+        quiz: [
+          {
+            q: "Which operator checks strict equality?",
+            options: ["===", "=", "==", "=>" ],
+            answer: 0,
+            right: "Three bars = strict equality. Ninja approved.",
+            wrong: "One bar assigns, two are loose. You want three."
+          },
+          {
+            q: "With hp = 42, which message prints?",
+            options: ["Sigma mode", "Keep grinding", "Respawn time", "Nothing"],
+            answer: 1,
+            right: "42 is above 0 but under 50, so the middle branch runs.",
+            wrong: "42 is not &gt;= 50 but it is &gt; 0. Check the middle branch."
+          }
+        ],
+        lab: 'let hp = 42;\n\nif (hp >= 50) {\n  console.log("Sigma mode");\n} else {\n  console.log("Keep grinding");\n}'
+      },
+      {
+        id: "js-4",
+        title: "Loops & Arrays: Crocodile Cargo",
+        tutor: "crocodilo",
+        concept: 'An array holds a list. <code>for...of</code> walks over each item directly. A classic <code>for</code> loop gives you the index so you can count laps.',
+        code: 'const brainrots = ["Tung", "Tralala", "Crocodilo"];\n\nfor (const name of brainrots) {\n  console.log("Hello " + name);\n}\n\nfor (let i = 0; i < 3; i++) {\n  console.log("Lap " + i);\n}',
+        breakdown: [
+          'JavaScript arrays start at index <code>0</code>.',
+          '<code>for...of</code> gives you the item itself.',
+          '<code>i++</code> adds one after every lap.'
+        ],
+        quiz: [
+          {
+            q: "What is the index of the first JS array item?",
+            options: ["0", "1", "-1", "null"],
+            answer: 0,
+            right: "Zero! Unlike Luau, JavaScript starts at 0.",
+            wrong: "JS arrays are zero-indexed. Not Luau!"
+          },
+          {
+            q: "Which loop walks over each item of an array?",
+            options: ["for...of", "while", "do...while", "for...in"],
+            answer: 0,
+            right: "<code>for...of</code> is the item-by-item loop.",
+            wrong: "Think of the loop that says 'for each value of this array'."
+          }
+        ],
+        lab: 'const crew = ["Tung", "Tralala", "Bombardiro"];\n\nfor (const name of crew) {\n  console.log("Hello " + name);\n}'
+      },
+      {
+        id: "js-5",
+        title: "Objects & The DOM: Patapim Runs the Page",
+        tutor: "patapim",
+        concept: 'Objects store key-value pairs. The DOM is the webpage represented as objects you can change with JavaScript. <code>document.querySelector()</code> grabs the first matching element and <code>textContent</code> changes its text.',
+        code: 'const player = { name: "Patapim", hp: 100, level: 3 };\n\nplayer.hp -= 10;\nconsole.log(player.name + " has " + player.hp + " HP");\n\nconst title = document.querySelector("h1");\ntitle.textContent = "Skibidi DOM!";',
+        breakdown: [
+          'Read object values with a dot: <code>player.name</code>.',
+          '<code>querySelector("h1")</code> returns an element.',
+          'The DOM line needs a real webpage to change — you are learning the pattern here.'
+        ],
+        quiz: [
+          {
+            q: "How do you read a value from an object?",
+            options: ["player.hp", "player->hp", "hp.player", "player(hp)"],
+            answer: 0,
+            right: "Dot notation. Easy.",
+            wrong: "Objects use <code>.</code> (or brackets) to read a key."
+          },
+          {
+            q: "What does document.querySelector() return?",
+            options: ["an element", "a string", "a number", "always undefined"],
+            answer: 0,
+            right: "It returns the first matching element (or null).",
+            wrong: "It hands you a DOM element so you can change it."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "py",
+    name: "Python",
+    color: "#3ee7ff",
+    desc: "Clean syntax, zero braces, maximum cappuccino. Start here if you are brand new.",
+    tutor: "ballerina",
+    lang: "python",
+    lessons: [
+      {
+        id: "py-1",
+        title: "Variables: Cappuccina's Coffee Labels",
+        tutor: "ballerina",
+        concept: 'Python variables need no keyword — just <code>name = value</code>. Booleans are capitalized: <code>True</code> and <code>False</code>. Use <code>print()</code> to show output and <code>str()</code> to turn a number into text.',
+        code: 'name = "Ballerina"\nlevel = 3\nis_sigma = True\n\nprint(name + " is level " + str(level))',
+        breakdown: [
+          'No <code>let</code>, no <code>local</code> — assignment creates the variable.',
+          '<code>True</code> must be capitalized in Python.',
+          '<code>str(3)</code> becomes the text <code>"3"</code>.'
+        ],
+        quiz: [
+          {
+            q: "Which line prints text in Python?",
+            options: ["print(...)", "console.log(...)", "echo ...", "printf(...)"],
+            answer: 0,
+            right: "Brava! <code>print()</code> is the one.",
+            wrong: "That is another language. Python uses <code>print()</code>."
+          },
+          {
+            q: "What does str(7) give you?",
+            options: ['"7"', "7", '"seven"', "an error"],
+            answer: 0,
+            right: "The number as text: <code>\"7\"</code>.",
+            wrong: "It converts the number to its text form, still the digit 7."
+          }
+        ]
+      },
+      {
+        id: "py-2",
+        title: "If / Else: Ninja Logic, Python Style",
+        tutor: "cappuccino",
+        concept: 'In Python, a colon <code>:</code> starts a block and indentation defines what belongs inside it. Use four spaces. <code>elif</code> is Python\'s "else if".',
+        code: 'energy = 35\n\nif energy >= 50:\n    print("Full send, sigma!")\nelif energy > 0:\n    print("Keep it moving")\nelse:\n    print("Tung tung... nap time")',
+        breakdown: [
+          'Each block header ends with a colon <code>:</code>.',
+          'Four spaces of indentation = inside the block.',
+          'No braces, no <code>end</code>. Whitespace does the job.'
+        ],
+        quiz: [
+          {
+            q: "What ends an if line in Python?",
+            options: [":", ";", "{}", "end"],
+            answer: 0,
+            right: "A colon. Then indent the block.",
+            wrong: "Python uses a colon to open the block."
+          },
+          {
+            q: "What defines a block in Python?",
+            options: ["indentation", "braces", "parentheses", "semicolons"],
+            answer: 0,
+            right: "Whitespace matters. Respect the spaces!",
+            wrong: "No braces here — indentation is the structure."
+          }
+        ]
+      },
+      {
+        id: "py-3",
+        title: "Loops: The Goose Formation",
+        tutor: "gusini",
+        concept: 'A <code>for</code> loop walks over a sequence. <code>range(5)</code> gives 0, 1, 2, 3, 4. A <code>while</code> loop repeats while its condition stays true.',
+        code: 'for i in range(5):\n    print("Tung", i)\n\nhp = 3\nwhile hp > 0:\n    hp -= 1\n\nprint("HP:", hp)',
+        breakdown: [
+          '<code>range(5)</code> stops before 5 — that is five numbers.',
+          '<code>print("Tung", i)</code> separates arguments with a space.',
+          'Do not forget the colon and the indent on every block.'
+        ],
+        quiz: [
+          {
+            q: "Which numbers does range(5) give?",
+            options: ["0 to 4", "1 to 5", "0 to 5", "1 to 4"],
+            answer: 0,
+            right: "0, 1, 2, 3, 4. The end is exclusive.",
+            wrong: "It starts at 0 and stops before 5."
+          },
+          {
+            q: "Which loop runs while a condition is true?",
+            options: ["while", "for", "range", "print"],
+            answer: 0,
+            right: "Honk! The <code>while</code> loop checks every lap.",
+            wrong: "A for loop walks a sequence; the condition-checker is while."
+          }
+        ]
+      },
+      {
+        id: "py-4",
+        title: "Functions: Tralala's Return Ticket",
+        tutor: "tralala",
+        concept: 'Define a function with <code>def</code>. Parameters go in parentheses, and <code>return</code> sends a value back. Calling a function means writing its name with arguments.',
+        code: 'def level_up(level, amount):\n    return level + amount\n\nlevel = 1\nlevel = level_up(level, 3)\nprint("LEVEL", level)',
+        breakdown: [
+          '<code>def</code> defines the function; the colon opens its block.',
+          '<code>level</code> and <code>amount</code> are parameters.',
+          '<code>return</code> produces a value you can store.'
+        ],
+        quiz: [
+          {
+            q: "Which keyword defines a Python function?",
+            options: ["def", "function", "fun", "local"],
+            answer: 0,
+            right: "<code>def</code> it, then call it.",
+            wrong: "Python keeps it short: <code>def</code>."
+          },
+          {
+            q: "What does return do?",
+            options: ["sends a value back", "prints to the screen", "starts a loop", "deletes the function"],
+            answer: 0,
+            right: "Return hands a value back to the caller.",
+            wrong: "Return is about giving a value back, not printing."
+          }
+        ]
+      },
+      {
+        id: "py-5",
+        title: "Lists & Dicts: Banana Storage",
+        tutor: "chimpanzini",
+        concept: 'A list holds ordered values and starts at index <code>0</code>. A dictionary (dict) stores key-value pairs, and you read them with <code>dict["key"]</code>.',
+        code: 'inventory = ["banana", "sword", "potion"]\nprint(inventory[0])  # banana\n\nplayer = {"name": "Tralala", "hp": 100}\nprint(player["name"])  # Tralala',
+        breakdown: [
+          'Python lists start at index <code>0</code>.',
+          'Comments begin with <code>#</code>.',
+          'Dict keys go in square brackets when reading them.'
+        ],
+        quiz: [
+          {
+            q: "What is the first index in a Python list?",
+            options: ["0", "1", "-1", "first"],
+            answer: 0,
+            right: "Zero, unlike Luau. Stay sharp!",
+            wrong: "Python lists are zero-indexed."
+          },
+          {
+            q: "How do you read the name from player?",
+            options: ['player["name"]', "player.name()", "name[player]", "player->name"],
+            answer: 0,
+            right: "Square brackets with the key name.",
+            wrong: "Dict lookup uses brackets around the key."
+          }
+        ]
+      }
+    ]
+  }
+];
+
+/* ------------------------------------------------------------------ *
+ * State + tiny helpers
+ * ------------------------------------------------------------------ */
+const view = document.getElementById("view");
+const toastEl = document.getElementById("toast");
+const STORAGE_KEY = "tungTungCodeAcademy.v1";
+
+let progress = loadProgress();
+let state = { screen: "home", trackId: null, lessonIndex: 0, quizIndex: 0, answered: false, hintIndex: 0 };
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      return { xp: Number(data.xp) || 0, completed: Array.isArray(data.completed) ? data.completed : [] };
+    }
+  } catch (e) { /* storage disabled — run in memory */ }
+  return { xp: 0, completed: [] };
+}
+function saveProgress() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (e) { /* ignore */ }
+  updateHUD();
+}
+function updateHUD() {
+  document.getElementById("xp-count").textContent = progress.xp;
+  document.getElementById("lesson-count").textContent = progress.completed.length;
+}
+function esc(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function getTrack(id) { return TRACKS.find(t => t.id === id); }
+function allLessons() { return TRACKS.flatMap(t => t.lessons); }
+function trackDone(track) { return track.lessons.every(l => progress.completed.includes(l.id)); }
+function lessonUnlocked(track, index) {
+  return index === 0 || progress.completed.includes(track.lessons[index - 1].id);
+}
+function toast(message) {
+  toastEl.textContent = message;
+  toastEl.classList.add("show");
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+}
+function confetti(count = 22) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const bits = ["🎉", "🔥", "🪵", "🦈", "☕", "🍌", "⚡", "💚"];
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement("span");
+    el.className = "confetti";
+    el.textContent = bits[i % bits.length];
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDuration = 1.6 + Math.random() * 1.8 + "s";
+    el.style.animationDelay = Math.random() * 0.5 + "s";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4200);
+  }
+}
+function highlightCode(code, lang) {
+  let out = esc(code);
+  const commentPattern = lang === "python" ? /#[^\n]*/g : lang === "luau" ? /--[^\n]*/g : /\/\/[^\n]*/g;
+  out = out.replace(commentPattern, m => '<span class="cmt">' + m + "</span>");
+  out = out.replace(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, m => '<span class="str">' + m + "</span>");
+  const keywords = lang === "python"
+    ? ["def", "return", "if", "elif", "else", "for", "in", "while", "True", "False"]
+    : lang === "luau"
+      ? ["local", "function", "if", "then", "elseif", "else", "end", "for", "do", "while", "true", "false"]
+      : ["let", "const", "function", "return", "if", "else", "for", "of", "while", "true", "false", "new"];
+  keywords.forEach(word => {
+    out = out.replace(new RegExp("\\b(" + word + ")\\b", "g"), '<span class="kw">$1</span>');
+  });
+  out = out.replace(/\b(\d+)\b/g, '<span class="num">$1</span>');
+  return out;
+}
+function tutorImg(tutor, cssClass = "") {
+  const t = TUTORS[tutor];
+  return '<img src="' + t.img + '" alt="' + esc(t.name) + '" class="' + cssClass +
+    '" loading="lazy" onerror="this.style.display=\'none\';this.insertAdjacentHTML(\'afterend\',\'' + t.fallback + '\')">';
+}
+
+/* ------------------------------------------------------------------ *
+ * Screens
+ * ------------------------------------------------------------------ */
+function render() {
+  updateHUD();
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  if (state.screen === "home") renderHome();
+  else if (state.screen === "track") renderTrack();
+  else if (state.screen === "lesson") renderLesson();
+  else if (state.screen === "complete") renderComplete();
+}
+
+function renderHome() {
+  const crew = ["tung", "tralala", "crocodilo", "ballerina", "cappuccino", "chimpanzini"];
+  const dict = [
+    ["variable", "a labelled skibidi box"],
+    ["function", "a recipe you reuse"],
+    ["parameter", "the ingredient you pass in"],
+    ["loop", "tung tung tung... again"],
+    ["boolean", "sigma or noob (true/false)"],
+    ["array", "a banana lunchbox"],
+    ["bug", "an uninvited brainrot"],
+    ["debugging", "bonking the bug until it leaves"],
+    ["syntax error", "your code speaks nonsense"],
+    ["API", "a waiter for data"],
+    ["DOM", "the page jungle"],
+    ["commit", "save the grind to history"]
+  ];
+  view.innerHTML = `
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">100% brainrot · 0% boring</span>
+        <h1>TUNG TUNG<br><span class="pop">CODE</span> ACADEMY</h1>
+        <p class="lede">The meme crew is here to teach you <strong>Luau, JavaScript and Python</strong>. Tiny lessons, ridiculous jokes, real code, and a quiz after every boss fight.</p>
+        <div class="hero-actions">
+          <button class="btn" data-action="start">Start the grind →</button>
+          <button class="btn secondary" data-action="scroll" data-target="meet-tutors">Meet the tutors</button>
+        </div>
+      </div>
+      <div class="hero-crew" aria-label="Your brainrot tutors">
+        ${crew.map(id => '<div class="crew-float">' + tutorImg(id) + '<div class="tag">' + esc(TUTORS[id].name.split(" ").slice(0, 2).join(" ")) + '</div></div>').join("")}
+      </div>
+    </section>
+
+    <section class="section-head">
+      <h2>Choose your arc</h2>
+      <p>Three languages. Fifteen lessons. One extremely confused crocodile.</p>
+    </section>
+    <div class="track-grid">
+      ${TRACKS.map(t => `
+        <button class="track-card" style="--track-color:${t.color}" data-action="track" data-track="${t.id}">
+          ${tutorImg(t.tutor)}
+          <h3>${esc(t.name)}</h3>
+          <p>${esc(t.desc)}</p>
+          <span class="chip">${t.lessons.length} lessons</span>
+          <span class="chip">${trackDone(t) ? "✅ cleared" : "beginner friendly"}</span>
+          <div class="progress-track"><div class="progress-fill" style="width:${Math.round(t.lessons.filter(l => progress.completed.includes(l.id)).length / t.lessons.length * 100)}%"></div></div>
+          <div class="enter" style="margin-top:12px">${trackDone(t) ? "Grind again →" : "Enter track →"}</div>
+        </button>`).join("")}
+    </div>
+
+    <section class="crew-section" id="meet-tutors">
+      <div class="section-head" style="margin-top:0"><h2>Meet the faculty</h2><p>Credentials: viral, unhinged, surprisingly good at explaining code.</p></div>
+      <div class="tutor-grid">
+        ${Object.entries(TUTORS).map(([id, t]) => `
+          <div class="tutor-card">${tutorImg(id)}<b>${esc(t.name)}</b><small>${esc(t.role)}</small></div>`).join("")}
+      </div>
+    </section>
+
+    <section class="dictionary-section">
+      <div class="section-head" style="margin-top:0"><h2>Brainrot → Code dictionary</h2><p>Never be confused by a mean-looking keyword again.</p></div>
+      <div class="dict-grid">
+        ${dict.map(([term, meaning]) => `<div class="dict-row"><code>${esc(term)}</code><span>${esc(meaning)}</span></div>`).join("")}
+      </div>
+    </section>
+
+    <section class="how-section">
+      <div class="section-head" style="margin-top:0"><h2>How the grind works</h2></div>
+      <div class="how-grid">
+        <div class="how-step"><h4>Pick a track</h4><p>Luau for Roblox, JavaScript for the web, Python for clean syntax.</p></div>
+        <div class="how-step"><h4>Survive the lesson</h4><p>Your tutor explains one idea with code, memes and a very short attention span.</p></div>
+        <div class="how-step"><h4>Pass the checkpoint</h4><p>Answer two questions. Wrong answer? The tutor roasts you and you retry.</p></div>
+        <div class="how-step"><h4>Farm XP</h4><p>Progress saves in your browser. Clear all five lessons to earn the track badge.</p></div>
+      </div>
+    </section>
+  `;
+}
+
+function renderTrack() {
+  const track = getTrack(state.trackId);
+  const tutor = TUTORS[track.tutor];
+  const done = track.lessons.filter(l => progress.completed.includes(l.id)).length;
+  view.innerHTML = `
+    <button class="back" data-action="home">← Back to academy</button>
+    <section class="track-hero">
+      ${tutorImg(track.tutor)}
+      <div style="flex:1;min-width:220px">
+        <span class="chip" style="color:${track.color}">${esc(track.name)} track</span>
+        <h2>${esc(track.name)} Boss Rush</h2>
+        <p>${esc(track.desc)}</p>
+        <div class="progress-track"><div class="progress-fill" style="width:${Math.round(done / track.lessons.length * 100)}%"></div></div>
+        <small style="color:var(--muted)">${done}/${track.lessons.length} lessons cleared</small>
+      </div>
+    </section>
+    <div class="lesson-list">
+      ${track.lessons.map((lesson, i) => {
+        const isDone = progress.completed.includes(lesson.id);
+        const unlocked = lessonUnlocked(track, i);
+        return `<button class="lesson-row ${isDone ? "done" : ""} ${unlocked ? "" : "locked"}" data-action="lesson" data-index="${i}" ${unlocked ? "" : "disabled"}>
+          <span class="lesson-num">${unlocked ? i + 1 : "🔒"}</span>
+          <span class="info"><b>${esc(lesson.title)}</b><small>${esc(TUTORS[lesson.tutor].name)} · 2 checkpoints</small></span>
+          <span class="state">${isDone ? "✅" : unlocked ? "▶" : "locked"}</span>
+        </button>`;
+      }).join("")}
+    </div>
+    ${trackDone(track) ? '<div class="panel" style="margin-top:20px;text-align:center"><h3>🏆 Track cleared!</h3><p>You survived. The brainrots are proud (and slightly confused).</p><button class="btn small" data-action="complete">See your badge →</button></div>' : ""}
+  `;
+}
+
+function pickLine(lesson) {
+  const tutor = TUTORS[lesson.tutor];
+  return tutor.lines[state.hintIndex % tutor.lines.length];
+}
+
+function renderLesson() {
+  const track = getTrack(state.trackId);
+  const lesson = track.lessons[state.lessonIndex];
+  const tutor = TUTORS[lesson.tutor];
+  const q = lesson.quiz[state.quizIndex];
+  state.answered = false;
+
+  view.innerHTML = `
+    <button class="back" data-action="track">← ${esc(track.name)} track</button>
+    <div class="lesson-layout">
+      <aside class="tutor-panel">
+        ${tutorImg(lesson.tutor)}
+        <h3>${esc(tutor.name)}</h3>
+        <div class="role">${esc(tutor.role)}</div>
+        <div class="bubble" id="tutor-line">${esc(pickLine(lesson))}</div>
+        <button class="btn ghost small" style="margin-top:12px;width:100%" data-action="hint">Another line ↻</button>
+      </aside>
+
+      <div class="lesson-main">
+        <div class="lesson-heading">
+          <span class="pill">Lesson ${state.lessonIndex + 1} / ${track.lessons.length}</span>
+          <h2>${esc(lesson.title)}</h2>
+        </div>
+
+        <section class="panel concept">
+          <h3>🧠 The idea</h3>
+          <p>${lesson.concept}</p>
+        </section>
+
+        <div class="code-card">
+          <div class="code-head"><span>${esc(track.lang)}</span><button class="mini-btn" data-action="copy">Copy code</button></div>
+          <pre><code>${highlightCode(lesson.code, track.lang)}</code></pre>
+        </div>
+
+        <section class="panel">
+          <h3>🔍 Break it down</h3>
+          <ul class="breakdown">${lesson.breakdown.map(b => "<li>" + b + "</li>").join("")}</ul>
+        </section>
+
+        <section class="panel quiz-card">
+          <div class="quiz-count">Checkpoint ${state.quizIndex + 1} / ${lesson.quiz.length}</div>
+          <h3>${esc(q.q)}</h3>
+          <div class="options" id="options">
+            ${q.options.map((opt, i) => `<button class="option" data-action="answer" data-index="${i}"><span class="key">${String.fromCharCode(65 + i)}</span><span>${esc(opt)}</span></button>`).join("")}
+          </div>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+          <div id="quiz-next"></div>
+        </section>
+
+        ${lesson.lab ? `
+        <section class="panel lab-card">
+          <h3>🧪 Tiny code lab</h3>
+          <p style="color:var(--muted);font-size:0.9rem">Edit the JS and hit run. It executes locally in this browser — no server, no skibidi.</p>
+          <textarea id="lab-code" spellcheck="false" aria-label="JavaScript code editor">${esc(lesson.lab)}</textarea>
+          <div class="lab-actions">
+            <button class="btn small" data-action="run">▶ Run code</button>
+            <button class="btn ghost small" data-action="reset-lab">Reset snippet</button>
+          </div>
+          <div class="lab-output" id="lab-output" aria-live="polite">Output appears here...</div>
+        </section>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function renderComplete() {
+  const track = getTrack(state.trackId);
+  view.innerHTML = `
+    <button class="back" data-action="home">← Back to academy</button>
+    <section class="complete-view">
+      ${tutorImg(track.tutor)}
+      <h2>TRACK CLEARED!</h2>
+      <p>You learned ${esc(track.name)}. The brainrots have officially stopped roasting you. (Mostly.)</p>
+      <div class="badges">
+        <span class="badge">🏆 ${esc(track.name)} badge</span>
+        <span class="badge">⚡ ${progress.xp} XP total</span>
+        <span class="badge">✅ ${progress.completed.length}/${allLessons().length} lessons</span>
+      </div>
+      <div class="hero-actions" style="justify-content:center">
+        <button class="btn" data-action="track">Back to track</button>
+        <button class="btn secondary" data-action="home">Academy home</button>
+      </div>
+    </section>
+  `;
+}
+
+/* ------------------------------------------------------------------ *
+ * Interactions
+ * ------------------------------------------------------------------ */
+view.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-action]");
+  if (!btn) return;
+  const action = btn.dataset.action;
+
+  if (action === "start") {
+    const next = TRACKS.find(t => !trackDone(t)) || TRACKS[0];
+    state.trackId = next.id;
+    state.screen = "track";
+    render();
+  } else if (action === "scroll") {
+    document.getElementById(btn.dataset.target)?.scrollIntoView({ behavior: "smooth" });
+  } else if (action === "track") {
+    state.trackId = btn.dataset.track || state.trackId;
+    state.screen = "track";
+    render();
+  } else if (action === "home") {
+    state.screen = "home";
+    render();
+  } else if (action === "lesson") {
+    state.lessonIndex = Number(btn.dataset.index);
+    state.quizIndex = 0;
+    state.hintIndex++;
+    state.screen = "lesson";
+    render();
+  } else if (action === "hint") {
+    state.hintIndex++;
+    const lesson = getTrack(state.trackId).lessons[state.lessonIndex];
+    document.getElementById("tutor-line").textContent = pickLine(lesson);
+  } else if (action === "copy") {
+    const code = getTrack(state.trackId).lessons[state.lessonIndex].code;
+    navigator.clipboard?.writeText(code).then(
+      () => toast("📋 Code copied. Go make something."),
+      () => toast("Clipboard blocked — select the code manually.")
+    );
+  } else if (action === "answer") {
+    handleAnswer(Number(btn.dataset.index));
+  } else if (action === "next-question") {
+    state.quizIndex++;
+    renderLesson();
+  } else if (action === "next-lesson") {
+    const track = getTrack(state.trackId);
+    if (state.lessonIndex + 1 < track.lessons.length) {
+      state.lessonIndex++;
+      state.quizIndex = 0;
+      state.hintIndex++;
+      renderLesson();
+    } else if (!trackDone(track)) {
+      state.screen = "track";
+      render();
+    } else {
+      state.screen = "complete";
+      render();
+      confetti();
+    }
+  } else if (action === "complete") {
+    state.screen = "complete";
+    render();
+    confetti();
+  } else if (action === "run") {
+    runLab();
+  } else if (action === "reset-lab") {
+    const lesson = getTrack(state.trackId).lessons[state.lessonIndex];
+    document.getElementById("lab-code").value = lesson.lab;
+    document.getElementById("lab-output").textContent = "Output appears here...";
+  }
+});
+
+function handleAnswer(index) {
+  if (state.answered) return;
+  const lesson = getTrack(state.trackId).lessons[state.lessonIndex];
+  const q = lesson.quiz[state.quizIndex];
+  const options = document.querySelectorAll(".option");
+  const feedback = document.getElementById("feedback");
+
+  if (index === q.answer) {
+    state.answered = true;
+    options.forEach((el, i) => { el.disabled = true; if (i === index) el.classList.add("correct"); });
+    const isLast = state.quizIndex + 1 >= lesson.quiz.length;
+    const firstClear = isLast && !progress.completed.includes(lesson.id);
+
+    progress.xp += 25;
+    if (firstClear) {
+      progress.completed.push(lesson.id);
+      progress.xp += 50;
+    }
+    saveProgress();
+    confetti(10);
+
+    feedback.className = "feedback good";
+    feedback.innerHTML = "✅ " + q.right + " <span style='color:var(--yellow)'>+25 XP" +
+      (firstClear ? " +50 XP lesson clear! 🏆" : "") + "</span>";
+
+    const nextBox = document.getElementById("quiz-next");
+    nextBox.innerHTML = '<button class="btn small quiz-next" data-action="' +
+      (isLast ? "next-lesson" : "next-question") + '">' +
+      (isLast ? (state.lessonIndex + 1 >= getTrack(state.trackId).lessons.length ? "Finish track 🏆" : "Next lesson →") : "Next question →") +
+      "</button>";
+  } else {
+    options[index].classList.add("wrong");
+    feedback.className = "feedback bad";
+    feedback.innerHTML = "💀 " + q.wrong;
+    setTimeout(() => options[index].classList.remove("wrong"), 600);
+  }
+}
+
+function runLab() {
+  const code = document.getElementById("lab-code").value;
+  const output = document.getElementById("lab-output");
+  const logs = [];
+  const format = (value) => {
+    if (typeof value === "string") return value;
+    try { return JSON.stringify(value); } catch (e) { return String(value); }
+  };
+  const fakeConsole = {
+    log: (...args) => logs.push(args.map(format).join(" ")),
+    error: (...args) => logs.push("❌ " + args.map(format).join(" ")),
+    warn: (...args) => logs.push("⚠ " + args.map(format).join(" "))
+  };
+  const fakeDocument = {
+    querySelector: () => ({ textContent: "", set innerHTML(v) { logs.push("[DOM] " + v); } })
+  };
+  try {
+    new Function("console", "document", '"use strict";\n' + code)(fakeConsole, fakeDocument);
+    output.textContent = logs.length ? logs.join("\n") : "(no output yet — try console.log(...))";
+  } catch (err) {
+    output.textContent = "💥 " + err.name + ": " + err.message;
+  }
+}
+
+document.getElementById("brand-btn").addEventListener("click", () => { state.screen = "home"; render(); });
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (!confirm("Erase all XP and lesson progress? No take-backs, skibidi.")) return;
+  progress = { xp: 0, completed: [] };
+  saveProgress();
+  state = { screen: "home", trackId: null, lessonIndex: 0, quizIndex: 0, answered: false, hintIndex: 0 };
+  render();
+  toast("Progress wiped. Fresh brainrot, fresh start.");
+});
+
+render();
+</script>
+</body>
+</html>
